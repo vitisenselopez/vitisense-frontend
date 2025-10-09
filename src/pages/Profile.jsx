@@ -19,7 +19,7 @@ export default function Profile() {
 
     const checkCustomerId = async () => {
       try {
-        const res = await fetch("http://localhost:3010/api/stripe/get-customer-id", {
+        const res = await fetch("https://vitisense-backend.onrender.com/api/user", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -36,7 +36,7 @@ export default function Profile() {
     setLoadingPortal(true);
     setError("");
     try {
-      const resId = await fetch("http://localhost:3010/api/stripe/get-customer-id", {
+      const resId = await fetch("https://vitisense-backend.onrender.com/api/user", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const dataId = await resId.json();
@@ -46,7 +46,7 @@ export default function Profile() {
         return;
       }
 
-      const res = await fetch("http://localhost:3010/api/stripe/customer-portal", {
+      const res = await ffetch("https://vitisense-backend.onrender.com/api/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export default function Profile() {
     setSuccess("");
 
     try {
-      const response = await fetch("http://localhost:3010/api/stripe/request-cancel-subscription", {
+      const response = await fetch("https://vitisense-backend.onrender.com/api/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

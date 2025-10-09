@@ -2,7 +2,7 @@
 export async function askGPT(messages) {
   const token = localStorage.getItem("token");
 
-  const response = await fetch("http://localhost:3010/api/ask", {
+  const response = await fetch("https://vitisense-backend.onrender.com/api/ask", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

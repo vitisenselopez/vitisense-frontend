@@ -9,7 +9,7 @@ export default function SubscriptionButton() {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("http://localhost:3010/api/stripe/create-checkout-session", {
+      const res = await fetch("https://vitisense-backend.onrender.com/api/ask", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

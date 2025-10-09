@@ -20,7 +20,7 @@ function Register() {
     }
 
     try {
-      const res = await fetch("http://localhost:3010/api/auth/register", {
+      const res = await fetch("https://vitisense-backend.onrender.com/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password, city, country }),
@@ -29,7 +29,7 @@ function Register() {
       const data = await res.json();
 
       if (res.ok) {
-        const stripeRes = await fetch("http://localhost:3010/api/stripe/create-checkout-session", {
+        const stripeRes = await fetch("https://vitisense-backend.onrender.com/api/auth/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, plan }),

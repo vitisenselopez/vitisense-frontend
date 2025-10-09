@@ -23,7 +23,7 @@ export async function sendMessage({ text, image = null, history = [] }) {
   //   console.log(`${key}:`, value);
   // }
 
-  const response = await fetch("http://localhost:3010/api/messages", {
+  const response = await fetch("https://vitisense-backend.onrender.com/api/conversations/send", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
