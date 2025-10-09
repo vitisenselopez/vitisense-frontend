@@ -13,7 +13,7 @@ import Success from "./pages/Success";
 // Rutas legales
 import Terminos from "./pages/terminos";
 import Privacidad from "./pages/privacidad";
-import Cookies from "./pages/Cookies";
+import Cookies from "./pages/cookies";
 import Formulario from "./pages/FormularioContacto";
 
 // Artículos del blog
