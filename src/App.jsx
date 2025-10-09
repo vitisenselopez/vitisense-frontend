@@ -11,7 +11,7 @@ import Cancel from "./pages/Cancel";
 import Success from "./pages/Success";
 
 // Rutas legales
-import Terminos from "./pages/Terminos";
+import Terminos from "./pages/terminos";
 import Privacidad from "./pages/Privacidad";
 import Cookies from "./pages/Cookies";
 import Formulario from "./pages/FormularioContacto";
