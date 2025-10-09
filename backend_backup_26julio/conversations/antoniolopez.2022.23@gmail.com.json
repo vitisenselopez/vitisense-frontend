@@ -1,0 +1,356 @@
+{
+  "conversations": [
+    {
+      "id": "0b74ed03-3fc7-45d4-b604-c5eab8ad8283",
+      "title": "Oídio",
+      "messages": [
+        {
+          "sender": "user",
+          "text": "Hola"
+        },
+        {
+          "sender": "ai",
+          "text": "Hola, ¿en qué puedo ayudarte hoy con tu viñedo?"
+        },
+        {
+          "sender": "user",
+          "text": "Que tal estas?"
+        },
+        {
+          "sender": "ai",
+          "text": "Estoy listo para ayudarte con cualquier consulta sobre tu viñedo. ¿Tienes alguna pregunta o problema específico?"
+        },
+        {
+          "sender": "user",
+          "text": "no de momento"
+        },
+        {
+          "sender": "ai",
+          "text": "Perfecto, cuando necesites algo, aquí estaré para ayudarte. ¡Buena cosecha!"
+        },
+        {
+          "sender": "user",
+          "text": "Ahora si?"
+        },
+        {
+          "sender": "ai",
+          "text": "Claro, adelante. ¿Cuál es tu consulta?"
+        },
+        {
+          "sender": "user",
+          "text": "Ahora puedo?"
+        },
+        {
+          "sender": "ai",
+          "text": "Por supuesto, dime en qué puedo ayudarte."
+        },
+        {
+          "sender": "user",
+          "text": "o después?"
+        },
+        {
+          "sender": "ai",
+          "text": "Estoy aquí para responderte ahora mismo. ¿Cuál es tu pregunta o problema?"
+        },
+        {
+          "sender": "user",
+          "text": "Te lo digo ahora?"
+        },
+        {
+          "sender": "ai",
+          "text": "Sí, por favor, dime en qué necesitas ayuda. Estoy aquí para asesorarte."
+        },
+        {
+          "sender": "user",
+          "text": "Ahora?"
+        },
+        {
+          "sender": "ai",
+          "text": "Sí, ahora mismo. ¿Cuál es tu consulta sobre viticultura?"
+        },
+        {
+          "sender": "user",
+          "text": "La puedo hacer ahora?"
+        },
+        {
+          "sender": "ai",
+          "text": "Sí, hazme tu consulta ahora. Estoy listo para ayudarte."
+        },
+        {
+          "sender": "user",
+          "text": "Puedo ya?"
+        },
+        {
+          "sender": "ai",
+          "text": "Sí, claro. Hazme tu pregunta cuando quieras. Estoy aquí para ayudarte."
+        },
+        {
+          "sender": "user",
+          "text": "Puedo ahora?"
+        },
+        {
+          "sender": "ai",
+          "text": "Sí, adelante. Estoy listo para ayudarte con lo que necesites."
+        },
+        {
+          "sender": "user",
+          "text": "Ahora?"
+        },
+        {
+          "sender": "ai",
+          "text": "Sí, ahora mismo. ¿En qué puedo ayudarte?"
+        },
+        {
+          "sender": "user",
+          "text": "Ahora?"
+        },
+        {
+          "sender": "ai",
+          "text": "Sí, por favor, haz tu pregunta. Estoy aquí para ayudarte."
+        },
+        {
+          "sender": "user",
+          "text": "Ahora?"
+        },
+        {
+          "sender": "ai",
+          "text": "Sí, dime cómo puedo ayudarte."
+        },
+        {
+          "sender": "user",
+          "text": "Ahora?"
+        },
+        {
+          "sender": "ai",
+          "text": "Estoy aquí para ayudarte, dime cuál es tu consulta."
+        },
+        {
+          "sender": "user",
+          "text": "Ahora?"
+        },
+        {
+          "sender": "ai",
+          "text": "Sí, adelante. ¿Cuál es tu consulta?"
+        },
+        {
+          "sender": "user",
+          "text": "Ahora?"
+        },
+        {
+          "sender": "ai",
+          "text": "Sí, por favor, cuéntame en qué necesitas ayuda."
+        },
+        {
+          "sender": "user",
+          "text": "Ahora?"
+        },
+        {
+          "sender": "ai",
+          "text": "Sí, estoy aquí para ayudarte. ¿Cuál es tu consulta?"
+        },
+        {
+          "sender": "user",
+          "text": "Ahora?"
+        },
+        {
+          "sender": "ai",
+          "text": "Sí, puedes hacer tu pregunta ahora. Estoy listo para ayudarte."
+        },
+        {
+          "sender": "user",
+          "text": "Ahora?",
+          "imageUrl": null
+        },
+        {
+          "sender": "ai",
+          "text": "Hola, ¿qué necesitas saber o solucionar en tu viñedo? Estoy aquí para ayudarte.",
+          "imageUrl": null
+        },
+        {
+          "sender": "user",
+          "text": "Ahora?",
+          "imageUrl": null
+        },
+        {
+          "sender": "ai",
+          "text": "Hola, ¿en qué puedo ayudarte hoy con tu viñedo?",
+          "imageUrl": null
+        },
+        {
+          "sender": "user",
+          "text": "Tengo un problema de oídio?",
+          "imageUrl": null
+        },
+        {
+          "sender": "ai",
+          "text": "Para confirmar si tienes un problema de oídio en tus viñas, busca los siguientes síntomas: manchas blancas o grises en hojas, brotes y racimos, que parecen polvo. También observa si las hojas están deformadas o el crecimiento de los brotes es débil.\n\nSi confirmas estos síntomas, te recomiendo aplicar un tratamiento con azufre mojable. Usa una dosis de 3 a 5 kg/ha, dependiendo del tamaño de la planta y la densidad del follaje. Aplícalo en las horas más frescas del día para evitar quemaduras. Repite cada 10-14 días según la presión de la enfermedad y las condiciones climáticas.\n\nSi tienes más detalles como la variedad, fase fenológica o tratamientos previos, puedo ajustar aún más la recomendación.",
+          "imageUrl": null
+        },
+        {
+          "sender": "user",
+          "text": "Te puedo preguntar ahora?",
+          "imageUrl": null
+        },
+        {
+          "sender": "ai",
+          "text": "Claro, adelante. ¿En qué puedo ayudarte hoy?",
+          "imageUrl": null
+        },
+        {
+          "sender": "user",
+          "text": "no hoy sino ahora",
+          "imageUrl": null
+        },
+        {
+          "sender": "ai",
+          "text": "Claro, ¿en qué puedo ayudarte ahora mismo? ¿Tienes alguna consulta específica sobre tu viñedo?",
+          "imageUrl": null
+        },
+        {
+          "sender": "user",
+          "text": "Puedo ahora?",
+          "imageUrl": null
+        },
+        {
+          "sender": "ai",
+          "text": "Necesito más información para poder ayudarte. ¿A qué te refieres exactamente? ¿Tienes un problema específico en el viñedo o buscas consejo sobre algún aspecto de la viticultura? Por favor, dame más detalles para poder orientarte mejor.",
+          "imageUrl": null
+        },
+        {
+          "sender": "user",
+          "text": "Tengo una consulta sobre oídio",
+          "imageUrl": null
+        },
+        {
+          "sender": "ai",
+          "text": "Claro, cuéntame más sobre tu situación. ¿En qué fase fenológica se encuentra tu viñedo y qué variedad de uva estás cultivando? Además, ¿has realizado algún tratamiento previo contra el oídio? Con esta información podré darte una recomendación más precisa.",
+          "imageUrl": null
+        },
+        {
+          "sender": "user",
+          "text": "Tengo oídio en fase avanzada, hay incluso algo del polvo en la uva.",
+          "imageUrl": null
+        },
+        {
+          "sender": "ai",
+          "text": "Para el control del oídio en fase avanzada, aplica un tratamiento con azufre mojable. Usa un producto con una concentración de 70-80% de azufre y aplica a una dosis de 3-4 kg/ha. Asegúrate de cubrir bien todas las partes de la planta, incluyendo racimos y hojas, para maximizar la efectividad. Realiza la aplicación en horas de menor calor para evitar daños por quemadura. Además, evalúa recurrir a un fungicida sistémico como el tebuconazol o el penconazol para un control más efectivo. Sigue las indicaciones del fabricante y respeta el tiempo de carencia antes de la cosecha. Revisa las condiciones climáticas y ajusta las aplicaciones futuras para prevenir nuevas infecciones.",
+          "imageUrl": null
+        },
+        {
+          "sender": "user",
+          "text": "Uso azufre mejor que topas?",
+          "imageUrl": null
+        },
+        {
+          "sender": "ai",
+          "text": "La elección entre azufre y un fungicida como Topas (cuyo principio activo es penconazol) depende del problema específico y la etapa de desarrollo de las vides.\n\n- **Azufre**: Es muy eficaz contra el oídio, especialmente en aplicaciones preventivas y es una opción más económica. Funciona mejor en temperaturas cálidas (20-25°C), pero puede causar fitotoxicidad si se aplica en temperaturas muy altas (por encima de 30°C).\n\n- **Topas (penconazol)**: Es un fungicida sistémico que ofrece control curativo y preventivo del oídio. Es útil si ya tienes una infección o si necesitas una protección prolongada. Además, es menos dependiente de la temperatura para su eficacia.\n\nPara una estrategia eficaz, puedes usar azufre al inicio de la temporada como preventivo y Topas si detectas síntomas o si el riesgo es alto. Recuerda rotar modos de acción para evitar resistencias. Ajusta las dosis según las indicaciones del fabricante y las condiciones del viñedo. ¿Tienes algún problema específico o fase fenológica en mente?",
+          "imageUrl": null
+        },
+        {
+          "sender": "user",
+          "text": "Entonces que hago?",
+          "imageUrl": null
+        },
+        {
+          "sender": "ai",
+          "text": "Necesito más detalles para ayudarte. ¿Cuál es el problema específico que estás enfrentando en el viñedo? Indícame la variedad de uva, la fase fenológica en la que se encuentra, y si has aplicado algún tratamiento previo. Con esta información podré darte una recomendación precisa.",
+          "imageUrl": null
+        },
+        {
+          "sender": "user",
+          "text": "pero sabes que enfermedad tengo?",
+          "imageUrl": null
+        },
+        {
+          "sender": "ai",
+          "text": "Para ayudarte mejor, necesito que me describas los síntomas que estás observando en tus vides. Cuéntame sobre las manchas, decoloraciones, tipo de lesiones, o cualquier otro detalle que notes. También indícame la variedad de uva, la fase fenológica en la que se encuentran, y si has aplicado algún tratamiento recientemente. Con esa información, podré orientarte mejor.",
+          "imageUrl": null
+        },
+        {
+          "sender": "user",
+          "text": "no puedes recordar la conversación?",
+          "imageUrl": null
+        },
+        {
+          "sender": "ai",
+          "text": "No, no tengo la capacidad de recordar conversaciones anteriores. Si tienes alguna pregunta o necesitas asesoramiento sobre viticultura, estaré encantado de ayudarte. ¿En qué puedo asistirte hoy?",
+          "imageUrl": null
+        },
+        {
+          "sender": "user",
+          "text": "digo esta misma conversación",
+          "imageUrl": null
+        },
+        {
+          "sender": "ai",
+          "text": "Claro, ¿cómo puedo ayudarte en esta conversación? ¿Tienes alguna consulta específica sobre tu viñedo?",
+          "imageUrl": null
+        },
+        {
+          "sender": "user",
+          "text": "de que enfermedad te hablé?",
+          "imageUrl": null
+        },
+        {
+          "sender": "ai",
+          "text": "Necesito que me des más detalles sobre la enfermedad que mencionaste. ¿Puedes describir los síntomas o el problema que estás observando en el viñedo? Así podré ayudarte mejor.",
+          "imageUrl": null
+        },
+        {
+          "sender": "user",
+          "text": "oídio",
+          "imageUrl": null
+        },
+        {
+          "sender": "ai",
+          "text": "Para controlar el oídio en viñedos, aplica un fungicida a base de azufre, que es efectivo y económico. La dosis típica es de 3 a 5 kg/ha. Asegúrate de cubrir bien la parte inferior de las hojas y los racimos. Aplica cada 10-14 días, especialmente en condiciones de alta humedad y temperaturas entre 20-25°C, que son ideales para el desarrollo del hongo. Si ya has tenido problemas serios, considera alternar con un fungicida sistémico como el penconazol o el tebuconazol, siguiendo la dosis recomendada por el fabricante. Verifica el estado fenológico de las vides, ya que la aplicación debe ser oportuna para proteger los brotes nuevos y los racimos en formación. Si necesitas más detalles sobre tu parcela específica, házmelo saber.",
+          "imageUrl": null
+        },
+        {
+          "sender": "user",
+          "text": "De que estamos hablando?",
+          "imageUrl": null
+        },
+        {
+          "sender": "ai",
+          "imageUrl": null
+        }
+      ],
+      "createdAt": "2025-07-07T17:25:06.746Z",
+      "updatedAt": "2025-07-25T21:08:30.592Z"
+    },
+    {
+      "id": "0ac91adf-6805-4be9-a3ed-0443d7023716",
+      "title": "Araña roja",
+      "messages": [
+        {
+          "sender": "user",
+          "text": "Qué puedo hacer contra la araña roja?"
+        },
+        {
+          "sender": "ai",
+          "text": "Para controlar la araña roja en viñedo, utiliza acaricidas específicos. Te recomiendo aplicar abamectina a una dosis de 0.2 a 0.4 L/ha, asegurando una cobertura completa del follaje. Aplica cuando observes los primeros síntomas para maximizar eficacia. Si el problema persiste o es recurrente, alterna con otros principios activos como el etoxazol para evitar resistencias. Revisa el umbral de tratamiento y las condiciones climáticas antes de aplicar para optimizar el resultado."
+        }
+      ],
+      "createdAt": "2025-07-07T19:41:00.358Z",
+      "updatedAt": "2025-07-07T19:41:58.379Z"
+    },
+    {
+      "id": "31a0b838-c9df-44c4-8a37-1149c715af6a",
+      "title": "Nueva conversación",
+      "messages": [
+        {
+          "sender": "user",
+          "text": "Hola",
+          "imageUrl": null
+        },
+        {
+          "sender": "ai",
+          "imageUrl": null
+        }
+      ],
+      "createdAt": "2025-07-25T21:21:55.914Z",
+      "updatedAt": "2025-07-25T21:22:00.025Z"
+    }
+  ]
+}

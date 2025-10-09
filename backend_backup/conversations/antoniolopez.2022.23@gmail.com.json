@@ -1,0 +1,36 @@
+{
+  "conversations": [
+    {
+      "id": "0b74ed03-3fc7-45d4-b604-c5eab8ad8283",
+      "title": "Oídio",
+      "messages": [
+        {
+          "sender": "user",
+          "text": "Hola"
+        },
+        {
+          "sender": "ai",
+          "text": "Hola, ¿en qué puedo ayudarte hoy con tu viñedo?"
+        }
+      ],
+      "createdAt": "2025-07-07T17:25:06.746Z",
+      "updatedAt": "2025-07-07T17:25:47.447Z"
+    },
+    {
+      "id": "0ac91adf-6805-4be9-a3ed-0443d7023716",
+      "title": "Araña roja",
+      "messages": [
+        {
+          "sender": "user",
+          "text": "Qué puedo hacer contra la araña roja?"
+        },
+        {
+          "sender": "ai",
+          "text": "Para controlar la araña roja en viñedo, utiliza acaricidas específicos. Te recomiendo aplicar abamectina a una dosis de 0.2 a 0.4 L/ha, asegurando una cobertura completa del follaje. Aplica cuando observes los primeros síntomas para maximizar eficacia. Si el problema persiste o es recurrente, alterna con otros principios activos como el etoxazol para evitar resistencias. Revisa el umbral de tratamiento y las condiciones climáticas antes de aplicar para optimizar el resultado."
+        }
+      ],
+      "createdAt": "2025-07-07T19:41:00.358Z",
+      "updatedAt": "2025-07-07T19:41:58.379Z"
+    }
+  ]
+}

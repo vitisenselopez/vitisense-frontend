@@ -1,0 +1,17 @@
+[
+  {
+    "email": "antoniolopez.2022.23@gmail.com",
+    "password": "$2b$10$MHiIt8BbAh00ofCjAnQU.Od/tD.lvqSBd9zKKPZMn//YehAxMGqp6"
+  },
+  {
+    "email": "milanrobao12@gmail.com",
+    "password": "$2b$10$jZwf7P3h66Rc3WPF1p.Hc.I5yqpHRHX.GwQUN1K8pkRfTjRqSgMLS"
+  },
+  {
+    "name": "Pepe",
+    "email": "adda@gmail.com",
+    "password": "$2b$10$um0g8lbQi1geM2azeQubF.Mly2Vn.Tyw.bWMqlafIYsHPS1MYqbbW",
+    "city": "españa",
+    "country": "españa"
+  }
+]
