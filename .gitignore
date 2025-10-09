@@ -25,3 +25,19 @@ dist-ssr
 .vercel
 node_modules/
 .vercel/
+
+# Ignorar node_modules
+node_modules/
+
+# Ignorar archivos de entorno
+.env
+.env.*
+
+# Ignorar directorios de backend
+backend/
+backend_backup/
+backend_backup_26julio/
+
+# Ignorar sistema
+.DS_Store
+.vscode/
