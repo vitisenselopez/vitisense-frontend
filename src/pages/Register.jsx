@@ -11,6 +11,8 @@ function Register() {
   const [plan, setPlan] = useState("pro");
   const [message, setMessage] = useState("");
 
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -20,7 +22,8 @@ function Register() {
     }
 
     try {
-      const res = await fetch("https://vitisense-backend.onrender.com/api/auth/register", {
+      // 1️⃣ Registro en /api/auth/register
+      const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password, city, country }),
@@ -29,7 +32,8 @@ function Register() {
       const data = await res.json();
 
       if (res.ok) {
-        const stripeRes = await fetch("https://vitisense-backend.onrender.com/api/auth/register", {
+        // 2️⃣ Redirección a Stripe desde /api/stripe/checkout
+        const stripeRes = await fetch(`${API_BASE_URL}/api/stripe/checkout`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, plan }),
@@ -51,7 +55,7 @@ function Register() {
 
   return (
     <div className="h-[calc(100vh-112px)] w-full grid grid-cols-1 md:grid-cols-2">
-      {/* Lado izquierdo mejorado */}
+      {/* Lado izquierdo */}
       <div className="hidden md:flex w-full flex-col justify-center items-start bg-gradient-to-br from-green-800 to-green-500 text-white p-12 relative overflow-hidden">
         <div className="z-10">
           <h1 className="text-5xl font-extrabold mb-4 leading-tight animate-fade-in">
@@ -61,22 +65,10 @@ function Register() {
             Transforma tu viñedo con inteligencia agronómica real. Diagnóstico inmediato. Sin sensores. Sin complicaciones.
           </p>
           <ul className="space-y-4 text-lg">
-            <li className="flex items-center gap-3">
-              <span className="text-pink-200 text-xl">🍇</span>
-              Diagnóstico instantáneo y preciso
-            </li>
-            <li className="flex items-center gap-3">
-              <span className="text-yellow-200 text-xl">📡</span>
-              No requiere sensores ni hardware adicional
-            </li>
-            <li className="flex items-center gap-3">
-              <span className="text-cyan-200 text-xl">🤖</span>
-              IA entrenada por expertos reales en viñedo
-            </li>
-            <li className="flex items-center gap-3">
-              <span className="text-purple-200 text-xl">🎁</span>
-              Prueba gratuita de 7 días incluida
-            </li>
+            <li className="flex items-center gap-3">🍇 Diagnóstico instantáneo y preciso</li>
+            <li className="flex items-center gap-3">📡 No requiere sensores ni hardware adicional</li>
+            <li className="flex items-center gap-3">🤖 IA entrenada por expertos reales en viñedo</li>
+            <li className="flex items-center gap-3">🎁 Prueba gratuita de 7 días incluida</li>
           </ul>
         </div>
         <div className="absolute -bottom-10 -right-10 w-72 h-72 bg-white/10 rounded-full blur-3xl z-0"></div>
@@ -92,7 +84,7 @@ function Register() {
               <input
                 type="text"
                 placeholder="Nombre completo"
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
@@ -103,7 +95,7 @@ function Register() {
               <input
                 type="email"
                 placeholder="Correo electrónico"
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -114,7 +106,7 @@ function Register() {
               <input
                 type="text"
                 placeholder="Localidad"
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 required
@@ -125,7 +117,7 @@ function Register() {
               <input
                 type="text"
                 placeholder="País"
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
                 required
@@ -136,7 +128,7 @@ function Register() {
               <input
                 type="password"
                 placeholder="Contraseña"
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -147,7 +139,7 @@ function Register() {
               <input
                 type="password"
                 placeholder="Confirmar contraseña"
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
@@ -162,15 +154,11 @@ function Register() {
               <select
                 value={plan}
                 onChange={(e) => setPlan(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-600"
+                className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-600"
                 required
               >
-                <option value="pro">
-                  Suscripción VITISENSE INDIVIDUAL (9,99 €/mes)
-                </option>
-                <option value="coop">
-                  Suscripción VITISENSE para COOPERATIVAS (249,99 €/mes)
-                </option>
+                <option value="pro">Suscripción VITISENSE INDIVIDUAL (9,99 €/mes)</option>
+                <option value="coop">Suscripción VITISENSE para COOPERATIVAS (249,99 €/mes)</option>
               </select>
             </div>
 

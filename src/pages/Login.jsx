@@ -6,6 +6,8 @@ function Login() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
+
   // Mostrar mensaje si viene de Stripe con ?success=true
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -17,7 +19,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("https://vitisense-backend.onrender.com/api/auth/login", {
+      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

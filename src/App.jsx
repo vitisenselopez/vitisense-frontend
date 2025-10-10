@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+
 import TopBanner from "./components/TopBanner";
 import Navbar from "./components/Navbar";
 import LandingPage from "./components/LandingPage";
@@ -21,7 +22,10 @@ import EnfermedadesFungicas from "./pages/EnfermedadesFungicas";
 import SueloUva from "./pages/SueloUva";
 import FenologiaVid from "./pages/FenologiaVid";
 
-// Scroll to top
+// Ruta protegida
+import ProtectedRoute from "./components/ProtectedRoute";
+
+// Scroll al cambiar de página
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -46,16 +50,25 @@ function App() {
             <Route
               path="/chat"
               element={
-                <div className="h-full overflow-auto overscroll-contain flex">
-                  <div className="w-full max-w-[1400px] mx-auto">
-                    <Chat />
+                <ProtectedRoute>
+                  <div className="h-full overflow-auto overscroll-contain flex">
+                    <div className="w-full max-w-[1400px] mx-auto">
+                      <Chat />
+                    </div>
                   </div>
-                </div>
+                </ProtectedRoute>
               }
             />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/cancel" element={<Cancel />} />
             <Route path="/success" element={<Success />} />
 
@@ -65,10 +78,10 @@ function App() {
             <Route path="/cookies" element={<Cookies />} />
             <Route path="/contacto" element={<Formulario />} />
 
-            {/* Rutas a artículos del blog */}
-<Route path="/blog/enfermedades-fungicas" element={<EnfermedadesFungicas />} />
-<Route path="/blog/importancia-suelo-uva" element={<SueloUva />} />
-<Route path="/blog/fenologia-vid" element={<FenologiaVid />} />
+            {/* Blog */}
+            <Route path="/blog/enfermedades-fungicas" element={<EnfermedadesFungicas />} />
+            <Route path="/blog/importancia-suelo-uva" element={<SueloUva />} />
+            <Route path="/blog/fenologia-vid" element={<FenologiaVid />} />
           </Routes>
         </div>
       </div>

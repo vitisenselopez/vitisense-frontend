@@ -8,6 +8,7 @@ export default function Profile() {
   const [loadingPortal, setLoadingPortal] = useState(false);
   const [hasStripeCustomerId, setHasStripeCustomerId] = useState(false);
 
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
@@ -19,7 +20,7 @@ export default function Profile() {
 
     const checkCustomerId = async () => {
       try {
-        const res = await fetch("https://vitisense-backend.onrender.com/api/user", {
+        const res = await fetch(`${API_BASE_URL}/api/user`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -30,36 +31,27 @@ export default function Profile() {
     };
 
     checkCustomerId();
-  }, [token, navigate]);
+  }, [token, navigate, API_BASE_URL]);
 
   const handleOpenCustomerPortal = async () => {
     setLoadingPortal(true);
     setError("");
-    try {
-      const resId = await fetch("https://vitisense-backend.onrender.com/api/user", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const dataId = await resId.json();
-      if (!dataId.customerId) {
-        setError("❌ No se encontró un ID de cliente válido.");
-        setLoadingPortal(false);
-        return;
-      }
 
-      const res = await ffetch("https://vitisense-backend.onrender.com/api/user", {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/stripe/customer-portal`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ customerId: dataId.customerId }),
       });
 
       const data = await res.json();
+
       if (data.url) {
         window.location.href = data.url;
       } else {
-        throw new Error("Error al abrir el portal de cliente.");
+        throw new Error("No se recibió URL del portal");
       }
     } catch (err) {
       console.error("❌ Error al abrir el portal:", err);
@@ -73,7 +65,7 @@ export default function Profile() {
     setSuccess("");
 
     try {
-      const response = await fetch("https://vitisense-backend.onrender.com/api/user", {
+      const response = await fetch(`${API_BASE_URL}/api/user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -106,8 +98,12 @@ export default function Profile() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div>
           <h2 className="text-4xl font-bold text-green-800 mb-4">👤 Mi perfil</h2>
-          <p className="text-lg text-gray-800 mb-1">Bienvenido, <strong>Agricultor</strong></p>
-          <p className="text-sm text-gray-500 mb-6">Gestiona tu cuenta y tu suscripción desde aquí.</p>
+          <p className="text-lg text-gray-800 mb-1">
+            Bienvenido, <strong>Agricultor</strong>
+          </p>
+          <p className="text-sm text-gray-500 mb-6">
+            Gestiona tu cuenta y tu suscripción desde aquí.
+          </p>
 
           <div className="bg-white rounded-xl shadow p-6 mb-6">
             <h3 className="text-xl font-semibold text-gray-900 mb-4">Gestión de suscripción</h3>

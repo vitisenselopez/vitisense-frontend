@@ -1,6 +1,7 @@
 // src/api/sendMessage.js
 export async function sendMessage({ text, image = null, history = [] }) {
   const token = localStorage.getItem("token");
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
 
   // Validación básica para evitar peticiones vacías
   const hasText = text && text.trim() !== "";
@@ -18,16 +19,11 @@ export async function sendMessage({ text, image = null, history = [] }) {
   if (hasImage) formData.append("image", image);
   formData.append("history", JSON.stringify(validHistory));
 
-  // DEBUG OPCIONAL – imprime los datos que se envían
-  // for (let [key, value] of formData.entries()) {
-  //   console.log(`${key}:`, value);
-  // }
-
-  const response = await fetch("https://vitisense-backend.onrender.com/api/conversations/send", {
+  const response = await fetch(`${API_BASE_URL}/api/conversations/send`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
-      // ❌ NO PONGAS Content-Type cuando usas FormData
+      // ❌ NO poner Content-Type manualmente cuando se usa FormData
     },
     body: formData,
   });
