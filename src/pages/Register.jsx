@@ -33,7 +33,7 @@ function Register() {
 
       if (res.ok) {
         // 2️⃣ Redirección a Stripe desde /api/stripe/checkout
-        const stripeRes = await fetch(`${API_BASE_URL}/api/stripe/checkout`, {
+        const stripeRes = await fetch(`${API_BASE_URL}/api/stripe/create-checkout-session`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, plan }),
