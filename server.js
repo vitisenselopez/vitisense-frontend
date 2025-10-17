@@ -5,26 +5,39 @@ const { OpenAI } = require('openai');
 require('dotenv').config();
 
 const app = express();
-const PORT = 3010;
+const PORT = process.env.PORT || 3010; // Render usa su propio puerto
 
-// ✅ Configurar CORS para Vite
+// ✅ CORS para desarrollo y producción
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://www.vitisense.es',
+  'https://vitisense-frontend.vercel.app',
+];
+
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // Permite curl/Postman
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('No permitido por CORS'));
+    }
+  },
   credentials: true,
 }));
 
 app.use(bodyParser.json());
 
-// ✅ Importar rutas backend
+// ✅ Rutas
 const authRoutes = require('./routes/auth');
 const conversationsRoutes = require('./routes/conversations');
-const stripeRoutes = require('./routes/stripe');  // Ruta Stripe conectada correctamente
+const stripeRoutes = require('./routes/stripe');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/conversations', conversationsRoutes);
-app.use('/api/stripe', stripeRoutes);  // Aquí se activa la ruta: /api/stripe/create-checkout-session
+app.use('/api/stripe', stripeRoutes);
 
-// ✅ Ruta de Chat IA con OpenAI
+// ✅ Ruta IA (GPT-4o)
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -58,7 +71,12 @@ app.post('/api/ask', async (req, res) => {
   }
 });
 
-// ✅ Iniciar servidor
+// ✅ Ruta 404 si no existe ninguna otra
+app.use((req, res) => {
+  res.status(404).json({ error: 'Ruta no encontrada' });
+});
+
+// ✅ Iniciar servidor (PORT dinámico en producción)
 app.listen(PORT, () => {
   console.log(`🚀 Servidor backend escuchando en http://localhost:${PORT}`);
 });
