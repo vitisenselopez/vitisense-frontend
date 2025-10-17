@@ -9,10 +9,10 @@ export default function Profile() {
   const [hasStripeCustomerId, setHasStripeCustomerId] = useState(false);
 
   const API_BASE_URL = import.meta.env.VITE_API_URL;
-  const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
       return;
@@ -31,9 +31,10 @@ export default function Profile() {
     };
 
     checkCustomerId();
-  }, [token, navigate, API_BASE_URL]);
+  }, [navigate, API_BASE_URL]);
 
   const handleOpenCustomerPortal = async () => {
+    const token = localStorage.getItem("token");
     setLoadingPortal(true);
     setError("");
 
@@ -61,6 +62,7 @@ export default function Profile() {
   };
 
   const handleCancelRequest = async () => {
+    const token = localStorage.getItem("token");
     setError("");
     setSuccess("");
 
@@ -75,7 +77,7 @@ export default function Profile() {
       });
 
       if (response.ok) {
-        setSuccess("✅ Suscripción cancelada correctamente.");
+        setSuccess("✅ Solicitud de cancelación enviada correctamente.");
         setMessage("");
       } else {
         throw new Error("Error al enviar la solicitud");
