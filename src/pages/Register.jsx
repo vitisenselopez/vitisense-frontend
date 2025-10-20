@@ -22,7 +22,6 @@ function Register() {
     }
 
     try {
-      // 1️⃣ Registro en /api/auth/register
       const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -32,7 +31,6 @@ function Register() {
       const data = await res.json();
 
       if (res.ok) {
-        // 2️⃣ Redirección a Stripe desde /api/stripe/checkout
         const stripeRes = await fetch(`${API_BASE_URL}/api/stripe/create-checkout-session`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -54,17 +52,17 @@ function Register() {
   };
 
   return (
-    <div className="h-[calc(100vh-112px)] w-full grid grid-cols-1 md:grid-cols-2">
-      {/* Lado izquierdo */}
+    <div className="min-h-screen w-full grid grid-cols-1 md:grid-cols-2">
+      {/* Lado izquierdo (solo visible en escritorio) */}
       <div className="hidden md:flex w-full flex-col justify-center items-start bg-gradient-to-br from-green-800 to-green-500 text-white p-12 relative overflow-hidden">
         <div className="z-10">
-          <h1 className="text-5xl font-extrabold mb-4 leading-tight animate-fade-in">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
             Bienvenido a VITISENSE
           </h1>
-          <p className="text-xl font-light mb-10 max-w-md">
+          <p className="text-lg md:text-xl font-light mb-10 max-w-md">
             Transforma tu viñedo con inteligencia agronómica real. Diagnóstico inmediato. Sin sensores. Sin complicaciones.
           </p>
-          <ul className="space-y-4 text-lg">
+          <ul className="space-y-4 text-base md:text-lg">
             <li className="flex items-center gap-3">🍇 Diagnóstico instantáneo y preciso</li>
             <li className="flex items-center gap-3">📡 No requiere sensores ni hardware adicional</li>
             <li className="flex items-center gap-3">🤖 IA entrenada por expertos reales en viñedo</li>
@@ -75,71 +73,77 @@ function Register() {
       </div>
 
       {/* Formulario */}
-      <div className="flex flex-col justify-center items-center px-10 bg-gradient-to-br from-green-100 via-white to-green-200 overflow-y-auto">
+      <div className="flex flex-col justify-center items-center px-4 sm:px-6 md:px-10 bg-gradient-to-br from-green-100 via-white to-green-200 overflow-y-auto py-10">
         <div className="w-full max-w-md">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Crear cuenta</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 text-center">Crear cuenta</h2>
+
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="relative">
               <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
                 placeholder="Nombre completo"
-                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 text-sm sm:text-base"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
               />
             </div>
+
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
                 type="email"
                 placeholder="Correo electrónico"
-                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 text-sm sm:text-base"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
+
             <div className="relative">
               <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
                 placeholder="Localidad"
-                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 text-sm sm:text-base"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 required
               />
             </div>
+
             <div className="relative">
               <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
                 placeholder="País"
-                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 text-sm sm:text-base"
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
                 required
               />
             </div>
+
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
                 type="password"
                 placeholder="Contraseña"
-                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 text-sm sm:text-base"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
+
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
                 type="password"
                 placeholder="Confirmar contraseña"
-                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 text-sm sm:text-base"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
@@ -148,13 +152,13 @@ function Register() {
 
             {/* Selector de plan */}
             <div>
-              <label className="block text-gray-700 mb-2 font-medium">
+              <label className="block text-gray-700 mb-2 font-medium text-sm sm:text-base">
                 Selecciona tu plan:
               </label>
               <select
                 value={plan}
                 onChange={(e) => setPlan(e.target.value)}
-                className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-600"
+                className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-600 text-sm sm:text-base"
                 required
               >
                 <option value="pro">Suscripción VITISENSE INDIVIDUAL (9,99 €/mes)</option>
@@ -164,7 +168,7 @@ function Register() {
 
             <button
               type="submit"
-              className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition"
+              className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition text-sm sm:text-base"
             >
               Registrarse
             </button>
