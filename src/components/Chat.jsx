@@ -16,44 +16,46 @@ export default function Chat() {
   const messagesEndRef = useRef(null);
   const token = localStorage.getItem("token");
 
-  useAuth();
+  useAuth(); // ✅ solo redirige si no hay token
 
   useEffect(() => {
-    if (!token || typeof token !== "string" || !token.includes(".")) {
-      console.warn("Token ausente o malformado. Redirigiendo a login...");
-      localStorage.removeItem("token");
-      navigate("/login");
-      return;
-    }
+  if (!token || typeof token !== "string" || !token.includes(".")) {
+    console.warn("Token ausente o malformado. Redirigiendo a login...");
+    localStorage.removeItem("token");
+    navigate("/login");
+    return;
+  }
 
-    const fetchEmail = async () => {
-      try {
-        const res = await fetch(`${API_BASE_URL}/api/auth/me`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+  const fetchEmail = async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/auth/me`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
-        if (!res.ok) {
-          localStorage.removeItem("token");
-          navigate("/login");
-          return;
-        }
-
-        const data = await res.json();
-        if (!data.email) {
-          navigate("/login");
-          return;
-        }
-
-        setEmail(data.email);
-      } catch (err) {
-        console.error("Error al obtener usuario:", err);
+      if (!res.ok) {
+        console.warn("Token inválido. Redirigiendo...");
         localStorage.removeItem("token");
         navigate("/login");
+        return;
       }
-    };
 
-    fetchEmail();
-  }, [token, navigate]);
+      const data = await res.json();
+      if (!data.email) {
+        console.warn("Respuesta sin email. Redirigiendo...");
+        navigate("/login");
+        return;
+      }
+
+      setEmail(data.email);
+    } catch (err) {
+      console.error("Error al obtener usuario:", err);
+      localStorage.removeItem("token");
+      navigate("/login");
+    }
+  };
+
+  fetchEmail();
+}, [token, navigate]);
 
   useEffect(() => {
     const fetchConversations = async () => {
@@ -186,7 +188,9 @@ export default function Chat() {
       const updatedMessages = [...newMessages, botMessage];
       setMessages(updatedMessages);
 
-      const payload = { messages: updatedMessages };
+      const payload = {
+        messages: updatedMessages,
+      };
 
       if (!activeConversationId) {
         const createRes = await fetch(`${API_BASE_URL}/api/conversations`, {
@@ -202,17 +206,15 @@ export default function Chat() {
         setActiveConversationId(createData.conversation.id);
         setConversations((prev) => [createData.conversation, ...prev]);
 
-        await fetch(
-          `${API_BASE_URL}/api/conversations/${email}/${createData.conversation.id}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(payload),
-          }
-        );
+        // Guardar mensajes tras crear conversación
+        await fetch(`${API_BASE_URL}/api/conversations/${email}/${createData.conversation.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        });
       } else {
         await fetch(`${API_BASE_URL}/api/conversations/${email}/${activeConversationId}`, {
           method: "PUT",
@@ -229,29 +231,27 @@ export default function Chat() {
   };
 
   return (
-    <div className="pt-[64px] h-[calc(100vh-64px)] flex overflow-hidden">
-      {/* Sidebar (movil + escritorio) */}
-      <Sidebar
-        conversations={conversations}
-        activeConversationId={activeConversationId}
-        onSelectConversation={handleSelectConversation}
-        onNewConversation={handleNewConversation}
-        onRenameConversation={handleRenameConversation}
-        onDeleteConversation={handleDeleteConversation}
-        onLogout={handleLogout}
-      />
+    <div className="fixed top-[112px] left-0 right-0 bottom-0 flex overflow-hidden">
+      <div className="w-64 h-full border-r border-gray-200">
+        <Sidebar
+          conversations={conversations}
+          activeConversationId={activeConversationId}
+          onSelectConversation={handleSelectConversation}
+          onNewConversation={handleNewConversation}
+          onRenameConversation={handleRenameConversation}
+          onDeleteConversation={handleDeleteConversation}
+          onLogout={handleLogout}
+        />
+      </div>
 
-      {/* Chat principal */}
       <div className="flex flex-col flex-1 h-full overflow-hidden">
-        <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-2 space-y-4">
+        <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
           {messages.length === 0 ? (
             <div className="flex items-center justify-center h-full">
               <div className="text-center text-gray-600 space-y-2">
                 <p className="text-xl font-semibold text-green-700">👋 Hola, soy VITISENSE</p>
                 <p className="text-base text-gray-700">Tu asesor técnico experto en viticultura.</p>
-                <p className="text-sm text-gray-500">
-                  Escribe tu consulta sobre la vid para que pueda ayudarte.
-                </p>
+                <p className="text-sm text-gray-500">Escribe tu consulta sobre la vid para que pueda ayudarte.</p>
               </div>
             </div>
           ) : (
@@ -269,8 +269,7 @@ export default function Chat() {
           )}
         </div>
 
-        {/* Input fijo al fondo */}
-        <div className="px-4 sm:px-6 py-4 border-t border-gray-200 bg-white">
+        <div className="px-6 py-4 border-t border-gray-200">
           <MessageInput onSend={handleSend} />
         </div>
       </div>
