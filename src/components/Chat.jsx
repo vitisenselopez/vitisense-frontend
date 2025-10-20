@@ -5,7 +5,7 @@ import Message from "../components/Message";
 import MessageInput from "../components/MessageInput";
 import useAuth from "../hooks/useAuth";
 
-const API_BASE_URL = import.meta.env.PROD ? "" : "http://localhost:3010";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 export default function Chat() {
   const navigate = useNavigate();
