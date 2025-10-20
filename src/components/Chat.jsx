@@ -227,18 +227,16 @@ export default function Chat() {
 
   return (
     <div className="pt-[112px] h-[calc(100vh-112px)] flex overflow-hidden">
-      {/* Sidebar */}
-      <div className="hidden md:block w-64 h-full border-r border-gray-200">
-        <Sidebar
-          conversations={conversations}
-          activeConversationId={activeConversationId}
-          onSelectConversation={handleSelectConversation}
-          onNewConversation={handleNewConversation}
-          onRenameConversation={handleRenameConversation}
-          onDeleteConversation={handleDeleteConversation}
-          onLogout={handleLogout}
-        />
-      </div>
+      {/* Sidebar móvil y escritorio */}
+      <Sidebar
+        conversations={conversations}
+        activeConversationId={activeConversationId}
+        onSelectConversation={handleSelectConversation}
+        onNewConversation={handleNewConversation}
+        onRenameConversation={handleRenameConversation}
+        onDeleteConversation={handleDeleteConversation}
+        onLogout={handleLogout}
+      />
 
       {/* Chat principal */}
       <div className="flex flex-col flex-1 h-full overflow-hidden">
@@ -248,7 +246,9 @@ export default function Chat() {
               <div className="text-center text-gray-600 space-y-2">
                 <p className="text-xl font-semibold text-green-700">👋 Hola, soy VITISENSE</p>
                 <p className="text-base text-gray-700">Tu asesor técnico experto en viticultura.</p>
-                <p className="text-sm text-gray-500">Escribe tu consulta sobre la vid para que pueda ayudarte.</p>
+                <p className="text-sm text-gray-500">
+                  Escribe tu consulta sobre la vid para que pueda ayudarte.
+                </p>
               </div>
             </div>
           ) : (
@@ -266,7 +266,8 @@ export default function Chat() {
           )}
         </div>
 
-        <div className="px-4 sm:px-6 py-4 border-t border-gray-200">
+        {/* Input fijo al fondo */}
+        <div className="px-4 sm:px-6 py-4 border-t border-gray-200 bg-white">
           <MessageInput onSend={handleSend} />
         </div>
       </div>
