@@ -12,7 +12,7 @@ export default function Sidebar({
 }) {
   const [renameId, setRenameId] = useState(null);
   const [newTitle, setNewTitle] = useState("");
-  const [isOpen, setIsOpen] = useState(false); // 👈 Control de visibilidad
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (renameId) {
@@ -32,14 +32,22 @@ export default function Sidebar({
         <Menu className="text-gray-800" />
       </button>
 
+      {/* Fondo oscuro modal al abrir sidebar en móvil */}
+      {isOpen && (
+        <div
+          className="md:hidden fixed inset-0 bg-black bg-opacity-30 z-30"
+          onClick={() => setIsOpen(false)}
+        ></div>
+      )}
+
       {/* Sidebar */}
       <aside
-        className={`fixed top-[102px] left-0 z-40 w-64 bg-white shadow-lg flex flex-col h-[calc(100vh-112px)] transition-transform duration-300 
-        ${isOpen ? "translate-x-0" : "-translate-x-full"} 
+        className={`fixed top-[102px] left-0 z-40 w-64 bg-white shadow-lg flex flex-col h-[calc(100vh-112px)] transition-transform duration-300
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
         md:translate-x-0 md:static md:flex`}
       >
         <header className="flex items-center justify-between p-4 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900">Mis conversaciones</h2>
+          <h2 className="text-base md:text-xl font-semibold text-gray-900">Mis conversaciones</h2>
           <button
             onClick={onNewConversation}
             className="text-green-600 font-bold hover:text-green-800"
@@ -50,10 +58,10 @@ export default function Sidebar({
           </button>
         </header>
 
-        {/* Botón cerrar (solo visible en móvil) */}
+        {/* Botón cerrar (solo en móvil) */}
         <button
           onClick={() => setIsOpen(false)}
-          className="md:hidden absolute top-2 right-2 p-1 text-gray-500 hover:text-gray-800"
+          className="md:hidden absolute top-3 right-3 p-2 text-gray-500 hover:text-gray-800 z-50"
           aria-label="Cerrar menú"
         >
           <X />
@@ -65,28 +73,26 @@ export default function Sidebar({
               key={c.id}
               onClick={() => {
                 onSelectConversation(c.id);
-                setIsOpen(false); // cerrar en móvil
+                setIsOpen(false);
               }}
-              className={`cursor-pointer px-5 py-3 truncate border-b border-gray-100
-                ${
-                  c.id === activeConversationId
-                    ? "bg-green-50 font-semibold text-green-800"
-                    : "hover:bg-gray-100"
-                }`}
+              className={`cursor-pointer px-5 py-3 truncate border-b border-gray-100 ${
+                c.id === activeConversationId
+                  ? "bg-green-50 font-semibold text-green-800"
+                  : "hover:bg-gray-100"
+              }`}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => e.key === "Enter" && onSelectConversation(c.id)}
             >
               <div className="flex justify-between items-center">
-                <span className="truncate max-w-[70%]">{c.title}</span>
-                <div className="flex space-x-4 text-sm">
+                <span className="truncate max-w-[65%] text-sm md:text-base">{c.title}</span>
+                <div className="flex space-x-3 text-xs md:text-sm">
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       setRenameId(c.id);
                     }}
                     className="text-green-600 hover:underline"
-                    aria-label={`Renombrar conversación ${c.title}`}
                     title="Renombrar"
                   >
                     Editar
@@ -97,7 +103,6 @@ export default function Sidebar({
                       onDeleteConversation(c.id);
                     }}
                     className="text-red-500 hover:underline"
-                    aria-label={`Eliminar conversación ${c.title}`}
                     title="Eliminar"
                   >
                     Eliminar
@@ -108,10 +113,10 @@ export default function Sidebar({
           ))}
         </nav>
 
-        <footer className="p-5 border-t border-gray-200">
+        <footer className="p-4 border-t border-gray-200">
           <button
             onClick={onLogout}
-            className="w-full py-3 rounded-lg bg-red-600 text-white font-semibold hover:bg-red-700 transition"
+            className="w-full py-3 rounded-lg bg-red-600 text-white font-semibold hover:bg-red-700 text-sm md:text-base"
           >
             Cerrar sesión
           </button>
@@ -129,7 +134,6 @@ export default function Sidebar({
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               autoFocus
-              aria-label="Nuevo título conversación"
             />
             <div className="flex justify-end space-x-3">
               <button
