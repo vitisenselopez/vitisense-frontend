@@ -19,23 +19,43 @@ export default function Chat() {
   useAuth(); // ✅ solo redirige si no hay token
 
   useEffect(() => {
-    if (!token) return;
+  if (!token || typeof token !== "string" || !token.includes(".")) {
+    console.warn("Token ausente o malformado. Redirigiendo a login...");
+    localStorage.removeItem("token");
+    navigate("/login");
+    return;
+  }
 
-    const fetchEmail = async () => {
-      try {
-        const res = await fetch(`${API_BASE_URL}/api/auth/me`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await res.json();
-        setEmail(data.email);
-      } catch (err) {
-        console.error("Error al obtener usuario:", err);
+  const fetchEmail = async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/auth/me`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (!res.ok) {
+        console.warn("Token inválido. Redirigiendo...");
+        localStorage.removeItem("token");
         navigate("/login");
+        return;
       }
-    };
 
-    fetchEmail();
-  }, [token, navigate]);
+      const data = await res.json();
+      if (!data.email) {
+        console.warn("Respuesta sin email. Redirigiendo...");
+        navigate("/login");
+        return;
+      }
+
+      setEmail(data.email);
+    } catch (err) {
+      console.error("Error al obtener usuario:", err);
+      localStorage.removeItem("token");
+      navigate("/login");
+    }
+  };
+
+  fetchEmail();
+}, [token, navigate]);
 
   useEffect(() => {
     const fetchConversations = async () => {
