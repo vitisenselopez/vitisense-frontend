@@ -26,7 +26,7 @@ export default function Sidebar({
       {/* Botón hamburguesa (solo móvil) */}
       <button
         onClick={() => setIsOpen(true)}
-        className="md:hidden fixed top-[115px] left-3 z-50 p-2 bg-white rounded-full shadow-md border border-gray-200"
+        className="md:hidden fixed top-[64px] left-3 z-40 p-2 bg-white rounded-full shadow-md border border-gray-200"
         aria-label="Abrir menú"
       >
         <Menu className="text-gray-800" />
@@ -42,11 +42,22 @@ export default function Sidebar({
 
       {/* Sidebar principal */}
       <aside
-        className={`fixed md:static top-[112px] left-0 z-40 bg-white shadow-lg flex flex-col 
-        h-[calc(100vh-112px)] md:h-auto transition-transform duration-300 transform
+        className={`fixed md:static top-[64px] left-0 z-40 bg-white shadow-lg flex flex-col 
+        h-[calc(100vh-64px)] md:h-auto transition-transform duration-300 transform
         ${isOpen ? "translate-x-0" : "-translate-x-full"}
         md:translate-x-0 md:w-64 w-64`}
       >
+        {/* Botón cerrar (solo móvil) */}
+        <div className="relative">
+          <button
+            onClick={() => setIsOpen(false)}
+            className="md:hidden absolute top-3 right-3 p-2 text-gray-500 hover:text-gray-800 z-50"
+            aria-label="Cerrar menú"
+          >
+            <X />
+          </button>
+        </div>
+
         {/* Encabezado */}
         <header className="flex items-center justify-between p-4 border-b border-gray-200">
           <h2 className="text-base md:text-lg font-semibold text-gray-900">
@@ -60,15 +71,6 @@ export default function Sidebar({
             +
           </button>
         </header>
-
-        {/* Botón cerrar (solo móvil) */}
-        <button
-          onClick={() => setIsOpen(false)}
-          className="md:hidden absolute top-3 right-3 p-2 text-gray-500 hover:text-gray-800 z-50"
-          aria-label="Cerrar menú"
-        >
-          <X />
-        </button>
 
         {/* Lista de conversaciones */}
         <nav className="flex-1 overflow-y-auto">
