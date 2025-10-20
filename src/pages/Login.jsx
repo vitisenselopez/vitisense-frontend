@@ -27,13 +27,15 @@ function Login() {
 
       const data = await res.json();
 
-      if (res.ok) {
+      if (res.ok && data.token) {
+        // ✅ Guarda solo el token válido
         localStorage.setItem("token", data.token);
-        localStorage.setItem("userName", data.name);
+
         setMessage("✅ Inicio de sesión exitoso.");
         window.location.href = "/chat";
       } else {
-        setMessage("❌ Credenciales inválidas");
+        // ✅ Muestra mensaje de error del backend si lo hay
+        setMessage(data.error || "❌ Credenciales inválidas");
       }
     } catch (err) {
       setMessage("❌ Error al conectar con el servidor.");
