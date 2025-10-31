@@ -23,13 +23,13 @@ export default function Sidebar({
 
   return (
     <>
-      {/* Botón hamburguesa — visible solo en móvil y alineado debajo del logo */}
+      {/* Botón hamburguesa toggle — siempre a la derecha del logo en móvil */}
       <button
-        onClick={() => setIsOpen(true)}
-        className="md:hidden fixed top-[68px] left-4 z-50 p-2 bg-white rounded-full shadow-md border border-gray-200"
-        aria-label="Abrir menú"
+        onClick={() => setIsOpen(!isOpen)}
+        className="md:hidden fixed top-[68px] left-32 z-50 p-2 bg-white rounded-full shadow-md border border-gray-200"
+        aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
       >
-        <Menu className="text-gray-800" />
+        {isOpen ? <X className="text-gray-800" /> : <Menu className="text-gray-800" />}
       </button>
 
       {/* Sidebar */}
@@ -105,15 +105,6 @@ export default function Sidebar({
             className="w-full py-3 rounded-lg bg-red-600 text-white font-semibold hover:bg-red-700 transition"
           >
             Cerrar sesión
-          </button>
-
-          {/* Botón cerrar (solo visible en móvil y ubicado al final) */}
-          <button
-            onClick={() => setIsOpen(false)}
-            className="md:hidden w-full py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
-            aria-label="Cerrar menú"
-          >
-            <X className="mx-auto" />
           </button>
         </footer>
       </aside>
