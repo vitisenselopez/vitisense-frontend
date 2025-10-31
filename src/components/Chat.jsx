@@ -230,7 +230,7 @@ export default function Chat() {
   };
 
   return (
-    <div className="fixed top-[112px] left-0 right-0 bottom-0 flex overflow-hidden">
+    <div className="absolute top-[112px] bottom-[70px] left-0 right-0 flex overflow-hidden">
       {/* Sidebar (oculto en móvil) */}
       <div className="hidden md:block w-64 h-full border-r border-gray-200">
         <Sidebar
