@@ -230,8 +230,8 @@ export default function Chat() {
   };
 
   return (
-    <div className="fixed top-[112px] left-0 right-0 bottom-0 flex overflow-hidden">
-      {/* Sidebar (oculto en móvil) */}
+    <div className="h-screen flex flex-col md:flex-row overflow-hidden">
+      {/* Sidebar escritorio */}
       <div className="hidden md:block w-64 h-full border-r border-gray-200">
         <Sidebar
           conversations={conversations}
@@ -245,8 +245,9 @@ export default function Chat() {
       </div>
 
       {/* Chat principal */}
-      <div className="flex flex-col flex-1 h-full">
-        <div className="flex-1 overflow-y-auto px-4 py-3 md:px-6 md:py-4 space-y-4">
+      <div className="flex flex-col flex-1">
+        {/* Contenedor de mensajes con scroll funcional y padding superior */}
+        <div className="flex-1 overflow-y-auto px-4 pt-20 pb-3 md:px-6 md:py-4 space-y-4">
           {messages.length === 0 ? (
             <div className="flex items-center justify-center h-full">
               <div className="text-center text-gray-600 space-y-2">
@@ -265,6 +266,7 @@ export default function Chat() {
           )}
         </div>
 
+        {/* Input de mensajes */}
         <div className="px-4 py-3 md:px-6 md:py-4 border-t border-gray-200">
           <MessageInput onSend={handleSend} />
         </div>
