@@ -25,7 +25,7 @@ export default function MessageInput({ onSend, disabled = false }) {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="Escribe tu consulta"
-        className="flex-grow px-4 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-600 text-sm text-gray-900 bg-white"
+        className="flex-grow px-4 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-600 text-gray-900 text-base"
         autoComplete="off"
         spellCheck={false}
         disabled={disabled}
