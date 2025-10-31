@@ -12,7 +12,7 @@ export default function Sidebar({
 }) {
   const [renameId, setRenameId] = useState(null);
   const [newTitle, setNewTitle] = useState("");
-  const [isOpen, setIsOpen] = useState(false); // 👈 Control de visibilidad
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (renameId) {
@@ -26,7 +26,7 @@ export default function Sidebar({
       {/* Botón hamburguesa visible solo en móvil */}
       <button
         onClick={() => setIsOpen(true)}
-        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-white rounded-full shadow-md border border-gray-200"
+        className="md:hidden fixed top-[72px] left-4 z-50 p-2 bg-white rounded-full shadow-md border border-gray-200"
         aria-label="Abrir menú"
       >
         <Menu className="text-gray-800" />
@@ -34,7 +34,7 @@ export default function Sidebar({
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-[102px] left-0 z-40 w-64 bg-white shadow-lg flex flex-col h-[calc(100vh-112px)] transition-transform duration-300 
+        className={`fixed top-[112px] left-0 z-40 w-64 bg-white shadow-lg flex flex-col h-[calc(100vh-112px)] transition-transform duration-300
         ${isOpen ? "translate-x-0" : "-translate-x-full"} 
         md:translate-x-0 md:static md:flex`}
       >
@@ -65,7 +65,7 @@ export default function Sidebar({
               key={c.id}
               onClick={() => {
                 onSelectConversation(c.id);
-                setIsOpen(false); // cerrar en móvil
+                setIsOpen(false);
               }}
               className={`cursor-pointer px-5 py-3 truncate border-b border-gray-100
                 ${

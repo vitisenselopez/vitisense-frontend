@@ -16,46 +16,46 @@ export default function Chat() {
   const messagesEndRef = useRef(null);
   const token = localStorage.getItem("token");
 
-  useAuth(); // ✅ solo redirige si no hay token
+  useAuth();
 
   useEffect(() => {
-  if (!token || typeof token !== "string" || !token.includes(".")) {
-    console.warn("Token ausente o malformado. Redirigiendo a login...");
-    localStorage.removeItem("token");
-    navigate("/login");
-    return;
-  }
-
-  const fetchEmail = async () => {
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/auth/me`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      if (!res.ok) {
-        console.warn("Token inválido. Redirigiendo...");
-        localStorage.removeItem("token");
-        navigate("/login");
-        return;
-      }
-
-      const data = await res.json();
-      if (!data.email) {
-        console.warn("Respuesta sin email. Redirigiendo...");
-        navigate("/login");
-        return;
-      }
-
-      setEmail(data.email);
-    } catch (err) {
-      console.error("Error al obtener usuario:", err);
+    if (!token || typeof token !== "string" || !token.includes(".")) {
+      console.warn("Token ausente o malformado. Redirigiendo a login...");
       localStorage.removeItem("token");
       navigate("/login");
+      return;
     }
-  };
 
-  fetchEmail();
-}, [token, navigate]);
+    const fetchEmail = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/auth/me`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (!res.ok) {
+          console.warn("Token inválido. Redirigiendo...");
+          localStorage.removeItem("token");
+          navigate("/login");
+          return;
+        }
+
+        const data = await res.json();
+        if (!data.email) {
+          console.warn("Respuesta sin email. Redirigiendo...");
+          navigate("/login");
+          return;
+        }
+
+        setEmail(data.email);
+      } catch (err) {
+        console.error("Error al obtener usuario:", err);
+        localStorage.removeItem("token");
+        navigate("/login");
+      }
+    };
+
+    fetchEmail();
+  }, [token, navigate]);
 
   useEffect(() => {
     const fetchConversations = async () => {
@@ -206,7 +206,6 @@ export default function Chat() {
         setActiveConversationId(createData.conversation.id);
         setConversations((prev) => [createData.conversation, ...prev]);
 
-        // Guardar mensajes tras crear conversación
         await fetch(`${API_BASE_URL}/api/conversations/${email}/${createData.conversation.id}`, {
           method: "PUT",
           headers: {
@@ -232,7 +231,8 @@ export default function Chat() {
 
   return (
     <div className="fixed top-[112px] left-0 right-0 bottom-0 flex overflow-hidden">
-      <div className="w-64 h-full border-r border-gray-200">
+      {/* Sidebar (oculto en móvil) */}
+      <div className="hidden md:block w-64 h-full border-r border-gray-200">
         <Sidebar
           conversations={conversations}
           activeConversationId={activeConversationId}
@@ -244,8 +244,9 @@ export default function Chat() {
         />
       </div>
 
-      <div className="flex flex-col flex-1 h-full overflow-hidden">
-        <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
+      {/* Chat principal */}
+      <div className="flex flex-col flex-1 h-full">
+        <div className="flex-1 overflow-y-auto px-4 py-3 md:px-6 md:py-4 space-y-4">
           {messages.length === 0 ? (
             <div className="flex items-center justify-center h-full">
               <div className="text-center text-gray-600 space-y-2">
@@ -257,21 +258,29 @@ export default function Chat() {
           ) : (
             <>
               {messages.map((msg, index) => (
-                <Message
-                  key={index}
-                  sender={msg.sender}
-                  text={msg.text}
-                  imageUrl={msg.imageUrl}
-                />
+                <Message key={index} sender={msg.sender} text={msg.text} imageUrl={msg.imageUrl} />
               ))}
               <div ref={messagesEndRef} />
             </>
           )}
         </div>
 
-        <div className="px-6 py-4 border-t border-gray-200">
+        <div className="px-4 py-3 md:px-6 md:py-4 border-t border-gray-200">
           <MessageInput onSend={handleSend} />
         </div>
+      </div>
+
+      {/* Sidebar móvil superpuesto */}
+      <div className="md:hidden">
+        <Sidebar
+          conversations={conversations}
+          activeConversationId={activeConversationId}
+          onSelectConversation={handleSelectConversation}
+          onNewConversation={handleNewConversation}
+          onRenameConversation={handleRenameConversation}
+          onDeleteConversation={handleDeleteConversation}
+          onLogout={handleLogout}
+        />
       </div>
     </div>
   );
