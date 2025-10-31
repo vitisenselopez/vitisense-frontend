@@ -26,7 +26,7 @@ export default function Sidebar({
       {/* Botón hamburguesa toggle — siempre a la derecha del logo en móvil */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden fixed top-[68px] left-32 z-50 p-2 bg-white rounded-full shadow-md border border-gray-200"
+        className="md:hidden fixed top-[68px] left-36 z-50 p-2 bg-white rounded-full shadow-md border border-gray-200"
         aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
       >
         {isOpen ? <X className="text-gray-800" /> : <Menu className="text-gray-800" />}
