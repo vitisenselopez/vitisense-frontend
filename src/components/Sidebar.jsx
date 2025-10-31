@@ -1,4 +1,3 @@
-// Sidebar.jsx (solo modifica lo indicado)
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
@@ -24,10 +23,10 @@ export default function Sidebar({
 
   return (
     <>
-      {/* Botón hamburguesa (ajustado para no solaparse con el logo) */}
+      {/* Botón hamburguesa — visible solo en móvil y alineado debajo del logo */}
       <button
         onClick={() => setIsOpen(true)}
-        className="md:hidden fixed top-5 left-24 z-50 p-2 bg-white rounded-full shadow-md border border-gray-200"
+        className="md:hidden fixed top-[68px] left-4 z-50 p-2 bg-white rounded-full shadow-md border border-gray-200"
         aria-label="Abrir menú"
       >
         <Menu className="text-gray-800" />
@@ -39,15 +38,6 @@ export default function Sidebar({
         ${isOpen ? "translate-x-0" : "-translate-x-full"} 
         md:translate-x-0 md:static md:flex`}
       >
-        {/* Botón cerrar (reubicado arriba a la derecha y separado del header) */}
-        <button
-          onClick={() => setIsOpen(false)}
-          className="md:hidden absolute top-2 right-2 p-2 text-gray-500 hover:text-gray-800 z-50"
-          aria-label="Cerrar menú"
-        >
-          <X />
-        </button>
-
         <header className="flex items-center justify-between p-4 border-b border-gray-200">
           <h2 className="text-xl font-semibold text-gray-900">Mis conversaciones</h2>
           <button
@@ -87,6 +77,8 @@ export default function Sidebar({
                       setRenameId(c.id);
                     }}
                     className="text-green-600 hover:underline"
+                    aria-label={`Renombrar conversación ${c.title}`}
+                    title="Renombrar"
                   >
                     Editar
                   </button>
@@ -96,6 +88,8 @@ export default function Sidebar({
                       onDeleteConversation(c.id);
                     }}
                     className="text-red-500 hover:underline"
+                    aria-label={`Eliminar conversación ${c.title}`}
+                    title="Eliminar"
                   >
                     Eliminar
                   </button>
@@ -105,12 +99,21 @@ export default function Sidebar({
           ))}
         </nav>
 
-        <footer className="p-5 border-t border-gray-200">
+        <footer className="p-5 border-t border-gray-200 space-y-4">
           <button
             onClick={onLogout}
             className="w-full py-3 rounded-lg bg-red-600 text-white font-semibold hover:bg-red-700 transition"
           >
             Cerrar sesión
+          </button>
+
+          {/* Botón cerrar (solo visible en móvil y ubicado al final) */}
+          <button
+            onClick={() => setIsOpen(false)}
+            className="md:hidden w-full py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
+            aria-label="Cerrar menú"
+          >
+            <X className="mx-auto" />
           </button>
         </footer>
       </aside>
@@ -126,6 +129,7 @@ export default function Sidebar({
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               autoFocus
+              aria-label="Nuevo título conversación"
             />
             <div className="flex justify-end space-x-3">
               <button
