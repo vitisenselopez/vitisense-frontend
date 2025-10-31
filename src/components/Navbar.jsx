@@ -63,7 +63,7 @@ export default function Navbar() {
 
       {/* Menú desplegable en móvil */}
       {menuOpen && (
-        <div className="absolute top-16 left-0 w-full bg-white shadow-md px-4 py-3 flex flex-col space-y-2 text-sm font-medium md:hidden z-50">
+  <div className="w-full bg-white border-t border-gray-200 px-4 py-3 flex flex-col space-y-2 text-sm font-medium md:hidden">
           <Link to="/" className="text-gray-700 hover:text-green-600" onClick={() => setMenuOpen(false)}>Inicio</Link>
 
           {isLoggedIn ? (
