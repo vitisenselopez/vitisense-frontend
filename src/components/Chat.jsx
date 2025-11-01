@@ -267,7 +267,8 @@ export default function Chat() {
       </div>
 
       {/* Input fijo abajo */}
-      <div className="px-4 py-3 md:px-6 md:py-4 border-t border-gray-200 bg-white shrink-0">
+      <div className="px-4 py-3 md:px-6 md:py-4 border-t border-gray-200 bg-white shrink-0"
+     style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
         <MessageInput onSend={handleSend} />
       </div>
     </div>
