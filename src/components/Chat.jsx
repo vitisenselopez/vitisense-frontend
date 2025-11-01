@@ -230,61 +230,56 @@ export default function Chat() {
   };
 
   return (
-  <div className="h-[calc(100vh-112px)] flex overflow-hidden">
-    {/* Sidebar escritorio */}
-    <div className="hidden md:block w-64 h-full border-r border-gray-200">
-      <Sidebar
-        conversations={conversations}
-        activeConversationId={activeConversationId}
-        onSelectConversation={handleSelectConversation}
-        onNewConversation={handleNewConversation}
-        onRenameConversation={handleRenameConversation}
-        onDeleteConversation={handleDeleteConversation}
-        onLogout={handleLogout}
-      />
-    </div>
+    <div className="h-[calc(100vh-112px)] flex overflow-hidden">
+      <div className="hidden md:block w-64 h-full border-r border-gray-200">
+        <Sidebar
+          conversations={conversations}
+          activeConversationId={activeConversationId}
+          onSelectConversation={handleSelectConversation}
+          onNewConversation={handleNewConversation}
+          onRenameConversation={handleRenameConversation}
+          onDeleteConversation={handleDeleteConversation}
+          onLogout={handleLogout}
+        />
+      </div>
 
-    {/* Área principal del chat */}
-    <div className="flex flex-col flex-1 h-full">
-      {/* Mensajes con scroll interno */}
-      <div className="flex-1 overflow-y-auto min-h-0 px-4 py-3 md:px-6 md:py-4 space-y-4">
-        {messages.length === 0 ? (
-          <div className="flex items-center justify-center h-full">
-            <div className="text-center text-gray-600 space-y-2">
-              <p className="text-xl font-semibold text-green-700">👋 Hola, soy VITISENSE</p>
-              <p className="text-base text-gray-700">Tu asesor técnico experto en viticultura.</p>
-              <p className="text-sm text-gray-500">Escribe tu consulta sobre la vid para que pueda ayudarte.</p>
+      <div className="flex flex-col flex-1 h-full">
+        <div className="flex-1 overflow-y-auto min-h-0 px-4 py-3 md:px-6 md:py-4 space-y-4">
+          {messages.length === 0 ? (
+            <div className="flex items-center justify-center h-full">
+              <div className="text-center text-gray-600 space-y-2">
+                <p className="text-xl font-semibold text-green-700">👋 Hola, soy VITISENSE</p>
+                <p className="text-base text-gray-700">Tu asesor técnico experto en viticultura.</p>
+                <p className="text-sm text-gray-500">Escribe tu consulta sobre la vid para que pueda ayudarte.</p>
+              </div>
             </div>
-          </div>
-        ) : (
-          <>
-            {messages.map((msg, index) => (
-              <Message key={index} sender={msg.sender} text={msg.text} imageUrl={msg.imageUrl} />
-            ))}
-            <div ref={messagesEndRef} />
-          </>
-        )}
+          ) : (
+            <>
+              {messages.map((msg, index) => (
+                <Message key={index} sender={msg.sender} text={msg.text} imageUrl={msg.imageUrl} />
+              ))}
+              <div ref={messagesEndRef} />
+            </>
+          )}
+        </div>
+
+        <div className="px-4 py-3 md:px-6 md:py-4 border-t border-gray-200 bg-white shrink-0"
+          style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
+          <MessageInput onSend={handleSend} />
+        </div>
       </div>
 
-      {/* Input fijo abajo */}
-      <div className="px-4 py-3 md:px-6 md:py-4 border-t border-gray-200 bg-white shrink-0"
-     style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
-        <MessageInput onSend={handleSend} />
+      <div className="md:hidden">
+        <Sidebar
+          conversations={conversations}
+          activeConversationId={activeConversationId}
+          onSelectConversation={handleSelectConversation}
+          onNewConversation={handleNewConversation}
+          onRenameConversation={handleRenameConversation}
+          onDeleteConversation={handleDeleteConversation}
+          onLogout={handleLogout}
+        />
       </div>
     </div>
-
-    {/* Sidebar móvil superpuesto */}
-    <div className="md:hidden">
-      <Sidebar
-        conversations={conversations}
-        activeConversationId={activeConversationId}
-        onSelectConversation={handleSelectConversation}
-        onNewConversation={handleNewConversation}
-        onRenameConversation={handleRenameConversation}
-        onDeleteConversation={handleDeleteConversation}
-        onLogout={handleLogout}
-      />
-    </div>
-  </div>
-);
+  );
 }
