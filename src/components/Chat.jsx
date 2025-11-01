@@ -230,7 +230,8 @@ export default function Chat() {
   };
 
   return (
-    <div className="h-[calc(100vh-112px)] flex overflow-hidden">
+   <div className="fixed top-[112px] left-0 right-0 bottom-0 flex overflow-hidden">
+      {/* Sidebar (oculto en móvil) */}
       <div className="hidden md:block w-64 h-full border-r border-gray-200">
         <Sidebar
           conversations={conversations}
@@ -243,32 +244,36 @@ export default function Chat() {
         />
       </div>
 
-      <div className="flex flex-col flex-1 h-full">
-        <div className="flex-1 overflow-y-auto min-h-0 px-4 py-3 md:px-6 md:py-4 space-y-4">
-          {messages.length === 0 ? (
-            <div className="flex items-center justify-center h-full">
-              <div className="text-center text-gray-600 space-y-2">
-                <p className="text-xl font-semibold text-green-700">👋 Hola, soy VITISENSE</p>
-                <p className="text-base text-gray-700">Tu asesor técnico experto en viticultura.</p>
-                <p className="text-sm text-gray-500">Escribe tu consulta sobre la vid para que pueda ayudarte.</p>
-              </div>
-            </div>
-          ) : (
-            <>
-              {messages.map((msg, index) => (
-                <Message key={index} sender={msg.sender} text={msg.text} imageUrl={msg.imageUrl} />
-              ))}
-              <div ref={messagesEndRef} />
-            </>
-          )}
+      {/* Chat principal */}
+ <div className="flex flex-col flex-1 h-full">
+  <div className="flex-1 flex flex-col overflow-hidden">
+    <div className="overflow-y-auto px-4 py-3 md:px-6 md:py-4 space-y-4"
+     style={{ flexGrow: 1, minHeight: 0 }}>
+      {messages.length === 0 ? (
+        <div className="flex items-center justify-center h-full">
+          <div className="text-center text-gray-600 space-y-2">
+            <p className="text-xl font-semibold text-green-700">👋 Hola, soy VITISENSE</p>
+            <p className="text-base text-gray-700">Tu asesor técnico experto en viticultura.</p>
+            <p className="text-sm text-gray-500">Escribe tu consulta sobre la vid para que pueda ayudarte.</p>
+          </div>
         </div>
+      ) : (
+        <>
+          {messages.map((msg, index) => (
+            <Message key={index} sender={msg.sender} text={msg.text} imageUrl={msg.imageUrl} />
+          ))}
+          <div ref={messagesEndRef} />
+        </>
+      )}
+    </div>
 
-        <div className="px-4 py-3 md:px-6 md:py-4 border-t border-gray-200 bg-white shrink-0"
-          style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
-          <MessageInput onSend={handleSend} />
-        </div>
-      </div>
+    <div className="px-4 py-3 md:px-6 md:py-4 border-t border-gray-200">
+      <MessageInput onSend={handleSend} />
+    </div>
+  </div>
+</div>
 
+      {/* Sidebar móvil superpuesto */}
       <div className="md:hidden">
         <Sidebar
           conversations={conversations}
