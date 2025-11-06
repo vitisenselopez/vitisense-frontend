@@ -40,7 +40,7 @@ function Login() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-100 via-white to-green-200 px-4 sm:px-6 md:px-10">
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-start justify-center min-h-screen pt-24">
         <div className="bg-white w-full max-w-md p-6 sm:p-8 md:p-10 rounded-2xl shadow-2xl">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-center text-gray-800 mb-6">
             Iniciar sesión
