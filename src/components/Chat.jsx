@@ -247,7 +247,7 @@ export default function Chat() {
       {/* Chat principal */}
  <div className="flex flex-col flex-1 h-full">
   <div className="flex-1 flex flex-col overflow-hidden">
-    <div className="overflow-y-auto pt-24 px-4 py-3 md:px-6 md:py-4 space-y-4"
+    <div className="overflow-y-auto pt-[120px] px-4 py-3 md:px-6 md:py-4 space-y-4"
  style={{ flexGrow: 1, minHeight: 0 }}>
       {messages.length === 0 ? (
         <div className="flex items-center justify-center h-full">
