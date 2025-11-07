@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, X } from "lucide-react"; // Asegúrate de tener lucide-react instalado
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -46,6 +46,15 @@ export default function Navbar() {
             <Link to="/profile">
               <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Cuaderno de campo</button>
             </Link>
+            <a
+              href="https://billing.stripe.com/p/login/00wbJ25H6eDS8Zc2mWbjW00"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="bg-purple-500 text-white px-3 py-1 rounded hover:bg-purple-600">
+                Gestionar suscripción
+              </button>
+            </a>
             <button
               onClick={handleLogout}
               className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
@@ -63,7 +72,7 @@ export default function Navbar() {
 
       {/* Menú desplegable en móvil */}
       {menuOpen && (
-  <div className="absolute top-16 left-0 w-full bg-white shadow-md px-4 py-3 flex flex-col space-y-2 text-sm font-medium md:hidden z-50">
+        <div className="absolute top-16 left-0 w-full bg-white shadow-md px-4 py-3 flex flex-col space-y-2 text-sm font-medium md:hidden z-50">
           <Link to="/" className="text-gray-700 hover:text-green-600" onClick={() => setMenuOpen(false)}>Inicio</Link>
 
           {isLoggedIn ? (
@@ -74,6 +83,16 @@ export default function Navbar() {
               <Link to="/profile" onClick={() => setMenuOpen(false)}>
                 <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 w-full">Cuaderno de campo</button>
               </Link>
+              <a
+                href="https://billing.stripe.com/p/login/00wbJ25H6eDS8Zc2mWbjW00"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full"
+              >
+                <button className="bg-purple-500 text-white px-3 py-1 rounded hover:bg-purple-600 w-full">
+                  Gestionar suscripción
+                </button>
+              </a>
               <button
                 onClick={() => {
                   handleLogout();
