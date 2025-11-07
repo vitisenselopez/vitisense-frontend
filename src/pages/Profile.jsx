@@ -1,6 +1,7 @@
+// Nuevo diseño completo del cuaderno con edición y eliminación
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { PlusCircle, Trash2, Pencil } from "lucide-react";
+import { Pencil, Trash2, PlusCircle } from "lucide-react";
 
 export default function Profile() {
   const [cuaderno, setCuaderno] = useState([]);
@@ -53,14 +54,12 @@ export default function Profile() {
     }
   };
 
-  const handleDeleteEntry = async (index) => {
+  const handleDelete = async (index) => {
     const token = localStorage.getItem("token");
     try {
       const res = await fetch(`${API_BASE_URL}/api/cuaderno/${index}`, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
       setCuaderno(data);
@@ -69,7 +68,12 @@ export default function Profile() {
     }
   };
 
-  const handleEditEntry = async (index) => {
+  const handleEdit = (index, current) => {
+    setEditando(index);
+    setEntradaEditada(current);
+  };
+
+  const handleSaveEdit = async (index) => {
     const token = localStorage.getItem("token");
     try {
       const res = await fetch(`${API_BASE_URL}/api/cuaderno/${index}`, {
@@ -83,7 +87,6 @@ export default function Profile() {
       const data = await res.json();
       setCuaderno(data);
       setEditando(null);
-      setEntradaEditada("");
     } catch (err) {
       console.error("❌ Error al editar entrada:", err);
     }
@@ -96,12 +99,9 @@ export default function Profile() {
           🌿 Cuaderno de campo
         </h2>
 
-        {/* NUEVA ENTRADA */}
-        <div className="mb-12">
-          <div className="bg-gray-100 border-l-4 border-green-500 rounded-lg p-6 shadow-inner">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">
-              Añadir nueva entrada
-            </h3>
+        <section className="mb-12">
+          <div className="bg-green-50 border-l-4 border-green-500 rounded-lg p-6 shadow-inner">
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">Añadir nueva actuación</h3>
             <div className="flex flex-col md:flex-row items-start md:items-end gap-4">
               <textarea
                 className="w-full border border-gray-300 rounded-lg p-4 text-sm resize-none focus:ring-2 focus:ring-green-500 focus:outline-none"
@@ -114,74 +114,78 @@ export default function Profile() {
                 onClick={handleAddEntry}
                 className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg shadow flex items-center gap-2 transition"
               >
-                <PlusCircle className="w-5 h-5" />
-                Añadir entrada
+                <PlusCircle className="w-5 h-5" /> Añadir entrada
               </button>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* ENTRADAS REGISTRADAS */}
-        <div>
+        <section>
           <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
             📋 Registro de actuaciones
           </h3>
 
           {cuaderno.length === 0 ? (
-            <p className="text-gray-500 text-sm italic">No hay entradas registradas por el momento.</p>
+            <p className="text-gray-500 text-sm italic">No hay actuaciones registradas.</p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-              {cuaderno.map((item, i) => (
-                <div
-                  key={i}
-                  className="border border-gray-300 bg-white rounded-lg shadow-sm p-5 hover:shadow-md transition-all duration-200"
-                >
-                  <div className="text-xs text-gray-500 font-semibold mb-2">
-                    Fecha de registro: {item.fecha}
-                  </div>
-                  {editando === i ? (
-                    <div className="flex flex-col gap-2">
-                      <textarea
-                        className="w-full border border-green-300 rounded p-2 text-sm"
-                        rows={2}
-                        value={entradaEditada}
-                        onChange={(e) => setEntradaEditada(e.target.value)}
-                      />
-                      <button
-                        onClick={() => handleEditEntry(i)}
-                        className="bg-green-600 text-white px-4 py-1 rounded"
-                      >
-                        Guardar
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="text-sm text-gray-800 leading-snug">
-                      {item.entrada}
-                    </div>
-                  )}
-
-                  <div className="mt-4 flex justify-end gap-3">
-                    <button
-                      onClick={() => {
-                        setEditando(i);
-                        setEntradaEditada(item.entrada);
-                      }}
-                      className="text-blue-600 hover:text-blue-800"
-                    >
-                      <Pencil className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() => handleDeleteEntry(i)}
-                      className="text-red-600 hover:text-red-800"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-              ))}
+            <div className="overflow-x-auto">
+              <table className="min-w-full table-auto border rounded-xl">
+                <thead className="bg-green-100 text-sm text-gray-700">
+                  <tr>
+                    <th className="px-4 py-3 text-left">Fecha</th>
+                    <th className="px-4 py-3 text-left">Descripción</th>
+                    <th className="px-4 py-3 text-center">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white text-sm divide-y divide-gray-200">
+                  {cuaderno.map((item, i) => (
+                    <tr key={i} className="hover:bg-gray-50">
+                      <td className="px-4 py-3 font-medium text-gray-600">
+                        {item.fecha}
+                      </td>
+                      <td className="px-4 py-3">
+                        {editando === i ? (
+                          <textarea
+                            className="w-full border rounded p-2 text-sm"
+                            value={entradaEditada}
+                            onChange={(e) => setEntradaEditada(e.target.value)}
+                          />
+                        ) : (
+                          item.entrada
+                        )}
+                      </td>
+                      <td className="px-4 py-3 text-center">
+                        {editando === i ? (
+                          <button
+                            onClick={() => handleSaveEdit(i)}
+                            className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs"
+                          >
+                            Guardar
+                          </button>
+                        ) : (
+                          <div className="flex justify-center gap-3">
+                            <button
+                              onClick={() => handleEdit(i, item.entrada)}
+                              className="text-blue-600 hover:text-blue-800"
+                            >
+                              <Pencil size={16} />
+                            </button>
+                            <button
+                              onClick={() => handleDelete(i)}
+                              className="text-red-600 hover:text-red-800"
+                            >
+                              <Trash2 size={16} />
+                            </button>
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )}
-        </div>
+        </section>
       </div>
     </div>
   );
