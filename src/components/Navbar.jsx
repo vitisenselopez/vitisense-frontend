@@ -72,7 +72,7 @@ export default function Navbar() {
                 <button className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 w-full">Chat</button>
               </Link>
               <Link to="/profile" onClick={() => setMenuOpen(false)}>
-                <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 w-full">Mi perfil</button>
+                <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 w-full">Cuaderno de campo</button>
               </Link>
               <button
                 onClick={() => {
