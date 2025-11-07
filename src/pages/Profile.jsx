@@ -95,9 +95,12 @@ export default function Profile() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-green-100 py-12 px-4 sm:px-8">
       <div className="max-w-6xl mx-auto bg-white border border-gray-200 shadow-2xl rounded-2xl p-10">
-        <h2 className="text-4xl font-bold text-green-800 text-center mb-10">
-          🌿 Cuaderno de campo
-        </h2>
+        <h2 className="text-4xl font-bold text-green-800 text-center mb-4">
+  🌿 Cuaderno de campo
+</h2>
+<p className="text-center text-gray-600 text-sm max-w-2xl mx-auto mb-10">
+  Las anotaciones que registres aquí son tenidas en cuenta por el sistema para ofrecerte recomendaciones más precisas, personalizadas y útiles en el chat. Cuanto más anotes, mejor te conocerá.
+</p>
 
         <section className="mb-12">
           <div className="bg-green-50 border-l-4 border-green-500 rounded-lg p-6 shadow-inner">
