@@ -300,7 +300,7 @@ export default function LandingPage() {
     <div>
       <h4 className="text-white font-semibold mb-4">Contacto</h4>
       <ul className="space-y-2 text-white/80">
-        <li>📍 Calle moro, 44 - 16220 Quintanar del Rey  (Cuenca)</li>
+        <li>📍  Quintanar del Rey </li>
         <li>📞 (+34) 653 613 796</li>
         <li>
           📧{" "}
