@@ -67,9 +67,13 @@ export default function Chat() {
         const data = await res.json();
         if (Array.isArray(data.conversations)) {
           setConversations(data.conversations);
-          if (data.conversations.length > 0) {
-            setActiveConversationId(data.conversations[0].id);
-            setMessages(data.conversations[0].messages);
+
+          // 🔒 Solo cambia si activeConversationId está vacío o eliminado
+          const stillExists = data.conversations.find(c => c.id === activeConversationId);
+          if (!activeConversationId || !stillExists) {
+            const first = data.conversations[0];
+            setActiveConversationId(first?.id || null);
+            setMessages(first?.messages || []);
           }
         }
       } catch (error) {
@@ -78,7 +82,7 @@ export default function Chat() {
     };
 
     fetchConversations();
-  }, [email, token]);
+  }, [email, token, activeConversationId]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -192,7 +196,9 @@ export default function Chat() {
         messages: updatedMessages,
       };
 
-      if (!activeConversationId) {
+      const convId = activeConversationId;
+
+      if (!convId) {
         const createRes = await fetch(`${API_BASE_URL}/api/conversations`, {
           method: "POST",
           headers: {
@@ -215,7 +221,7 @@ export default function Chat() {
           body: JSON.stringify(payload),
         });
       } else {
-        await fetch(`${API_BASE_URL}/api/conversations/${email}/${activeConversationId}`, {
+        await fetch(`${API_BASE_URL}/api/conversations/${email}/${convId}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -230,8 +236,7 @@ export default function Chat() {
   };
 
   return (
-   <div className="fixed top-[125px] md:top-[112px] left-0 right-0 bottom-0 flex overflow-hidden">
-      {/* Sidebar (oculto en móvil) */}
+    <div className="fixed top-[125px] md:top-[112px] left-0 right-0 bottom-0 flex overflow-hidden">
       <div className="hidden md:block w-64 h-full border-r border-gray-200">
         <Sidebar
           conversations={conversations}
@@ -244,36 +249,36 @@ export default function Chat() {
         />
       </div>
 
-      {/* Chat principal */}
- <div className="flex flex-col flex-1 h-full">
-  <div className="flex-1 flex flex-col overflow-hidden">
-    <div className="overflow-y-auto pt-24 px-4 py-3 md:px-6 md:py-4 space-y-4"
- style={{ flexGrow: 1, minHeight: 0 }}>
-      {messages.length === 0 ? (
-        <div className="flex items-center justify-center h-full">
-          <div className="text-center text-gray-600 space-y-2">
-            <p className="text-xl font-semibold text-green-700">👋 Hola, soy VITISENSE</p>
-            <p className="text-base text-gray-700">Tu asesor técnico experto en viticultura.</p>
-            <p className="text-sm text-gray-500">Escribe tu consulta sobre la vid para que pueda ayudarte.</p>
+      <div className="flex flex-col flex-1 h-full">
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <div
+            className="overflow-y-auto pt-24 px-4 py-3 md:px-6 md:py-4 space-y-4"
+            style={{ flexGrow: 1, minHeight: 0 }}
+          >
+            {messages.length === 0 ? (
+              <div className="flex items-center justify-center h-full">
+                <div className="text-center text-gray-600 space-y-2">
+                  <p className="text-xl font-semibold text-green-700">👋 Hola, soy VITISENSE</p>
+                  <p className="text-base text-gray-700">Tu asesor técnico experto en viticultura.</p>
+                  <p className="text-sm text-gray-500">Escribe tu consulta sobre la vid para que pueda ayudarte.</p>
+                </div>
+              </div>
+            ) : (
+              <>
+                {messages.map((msg, index) => (
+                  <Message key={index} sender={msg.sender} text={msg.text} imageUrl={msg.imageUrl} />
+                ))}
+                <div ref={messagesEndRef} />
+              </>
+            )}
+          </div>
+
+          <div className="px-4 py-3 md:px-6 md:py-4 border-t border-gray-200">
+            <MessageInput onSend={handleSend} />
           </div>
         </div>
-      ) : (
-        <>
-          {messages.map((msg, index) => (
-            <Message key={index} sender={msg.sender} text={msg.text} imageUrl={msg.imageUrl} />
-          ))}
-          <div ref={messagesEndRef} />
-        </>
-      )}
-    </div>
+      </div>
 
-    <div className="px-4 py-3 md:px-6 md:py-4 border-t border-gray-200">
-      <MessageInput onSend={handleSend} />
-    </div>
-  </div>
-</div>
-
-      {/* Sidebar móvil superpuesto */}
       <div className="md:hidden">
         <Sidebar
           conversations={conversations}
