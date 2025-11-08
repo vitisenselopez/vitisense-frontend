@@ -305,7 +305,7 @@ export default function LandingPage() {
         <li>
           📧{" "}
           <a href="mailto:soporte@vitisense.com" className="hover:underline">
-            soporte@vitisense.com
+            cooperativas@vitisense.com
           </a>
         </li>
       </ul>
