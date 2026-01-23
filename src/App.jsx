@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 import TopBanner from "./components/TopBanner";
 import Navbar from "./components/Navbar";
@@ -40,6 +41,10 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
+
+      {/* 🔹 Vercel Analytics */}
+      <Analytics />
+
       <div className="flex flex-col min-h-screen">
         <TopBanner />
         <Navbar />
@@ -47,6 +52,7 @@ function App() {
         <div className="flex-1 overflow-hidden">
           <Routes>
             <Route path="/" element={<LandingPage />} />
+
             <Route
               path="/chat"
               element={
@@ -59,8 +65,10 @@ function App() {
                 </ProtectedRoute>
               }
             />
+
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+
             <Route
               path="/profile"
               element={
@@ -69,6 +77,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+
             <Route path="/cancel" element={<Cancel />} />
             <Route path="/success" element={<Success />} />
 
