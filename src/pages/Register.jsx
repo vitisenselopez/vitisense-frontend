@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, Lock, User, MapPin, Globe } from "lucide-react";
+import { Mail, Lock, User, MapPin, Globe, Phone } from "lucide-react";
 
 function Register() {
   const [name, setName] = useState("");
@@ -8,6 +8,7 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
   const [plan, setPlan] = useState("pro");
   const [message, setMessage] = useState("");
 
@@ -21,11 +22,18 @@ function Register() {
       return;
     }
 
+    // Añadir prefijo +34 automáticamente si no lo tiene
+    const numeroWhatsapp = whatsapp.trim()
+      ? whatsapp.trim().startsWith("+")
+        ? whatsapp.trim()
+        : `+34${whatsapp.trim().replace(/^0+/, "")}`
+      : "";
+
     try {
       const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password, city, country }),
+        body: JSON.stringify({ name, email, password, city, country, whatsapp: numeroWhatsapp }),
       });
 
       const data = await res.json();
@@ -53,7 +61,7 @@ function Register() {
 
   return (
     <div className="min-h-screen w-full grid grid-cols-1 md:grid-cols-2">
-      {/* Lado izquierdo (solo visible en escritorio) */}
+      {/* Lado izquierdo */}
       <div className="hidden md:flex w-full flex-col justify-center items-start bg-gradient-to-br from-green-800 to-green-500 text-white p-12 relative overflow-hidden">
         <div className="z-10">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
@@ -125,6 +133,21 @@ function Register() {
                 required
               />
             </div>
+
+            {/* ✅ Campo WhatsApp */}
+            <div className="relative">
+              <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <input
+                type="tel"
+                placeholder="Número de WhatsApp (ej: 612345678)"
+                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 text-sm sm:text-base"
+                value={whatsapp}
+                onChange={(e) => setWhatsapp(e.target.value)}
+              />
+            </div>
+            <p className="text-xs text-gray-400 -mt-3 pl-1">
+              Opcional. Te permite consultar a VITISENSE directamente por WhatsApp con tu suscripción activa. Sin prefijo, se añade +34 automáticamente.
+            </p>
 
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
