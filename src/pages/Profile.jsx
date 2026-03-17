@@ -1,17 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Pencil, Trash2, PlusCircle, Phone, CheckCircle } from "lucide-react";
+import { Pencil, Trash2, PlusCircle } from "lucide-react";
 
 export default function Profile() {
   const [cuaderno, setCuaderno] = useState([]);
   const [entrada, setEntrada] = useState("");
   const [editando, setEditando] = useState(null);
   const [entradaEditada, setEntradaEditada] = useState("");
-
-  // ✅ WhatsApp
-  const [whatsapp, setWhatsapp] = useState("");
-  const [whatsappGuardado, setWhatsappGuardado] = useState("");
-  const [whatsappMsg, setWhatsappMsg] = useState("");
 
   const API_BASE_URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
@@ -35,57 +30,8 @@ export default function Profile() {
       }
     };
 
-    // ✅ Cargar número de WhatsApp guardado
-    const fetchPerfil = async () => {
-      try {
-        const res = await fetch(`${API_BASE_URL}/api/auth/perfil`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await res.json();
-        if (data.whatsapp) {
-          setWhatsappGuardado(data.whatsapp);
-          setWhatsapp(data.whatsapp);
-        }
-      } catch (err) {
-        console.error("❌ Error al cargar perfil:", err);
-      }
-    };
-
     fetchCuaderno();
-    fetchPerfil();
   }, [navigate, API_BASE_URL]);
-
-  // ✅ Guardar número de WhatsApp
-  const handleGuardarWhatsapp = async () => {
-    const token = localStorage.getItem("token");
-    const numeroLimpio = whatsapp.trim().replace(/\s/g, "");
-
-    if (!numeroLimpio.startsWith("+")) {
-      setWhatsappMsg("El número debe incluir el prefijo internacional. Ej: +34612345678");
-      return;
-    }
-
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/auth/whatsapp`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ whatsapp: numeroLimpio }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setWhatsappGuardado(numeroLimpio);
-        setWhatsappMsg("✅ Número vinculado correctamente.");
-      } else {
-        setWhatsappMsg(data.error || "Error al guardar el número.");
-      }
-    } catch (err) {
-      console.error("❌ Error al guardar WhatsApp:", err);
-      setWhatsappMsg("Error de conexión.");
-    }
-  };
 
   const handleAddEntry = async () => {
     if (!entrada.trim()) return;
@@ -155,42 +101,6 @@ export default function Profile() {
           Las anotaciones que registres aquí son tenidas en cuenta por el sistema para ofrecerte recomendaciones más precisas, personalizadas y útiles en el chat. Cuanto más anotes, mejor te conocerá.
         </p>
 
-        {/* ✅ SECCIÓN WHATSAPP */}
-        <section className="mb-12">
-          <div className="bg-green-50 border-l-4 border-green-500 rounded-lg p-6 shadow-inner">
-            <h3 className="text-xl font-semibold text-gray-800 mb-1 flex items-center gap-2">
-              <Phone className="w-5 h-5 text-green-600" /> Vincular WhatsApp
-            </h3>
-            <p className="text-sm text-gray-500 mb-4">
-              Vincula tu número para consultar a VITISENSE directamente desde WhatsApp con tu suscripción activa.
-            </p>
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
-              <input
-                type="tel"
-                className="w-full md:w-72 border border-gray-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-green-500 focus:outline-none"
-                placeholder="+34612345678"
-                value={whatsapp}
-                onChange={(e) => setWhatsapp(e.target.value)}
-              />
-              <button
-                onClick={handleGuardarWhatsapp}
-                className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg shadow flex items-center gap-2 transition"
-              >
-                <CheckCircle className="w-5 h-5" /> Guardar número
-              </button>
-              {whatsappGuardado && (
-                <span className="text-sm text-green-700 font-medium">
-                  ✅ Vinculado: {whatsappGuardado}
-                </span>
-              )}
-            </div>
-            {whatsappMsg && (
-              <p className="mt-3 text-sm text-gray-600">{whatsappMsg}</p>
-            )}
-          </div>
-        </section>
-
-        {/* SECCIÓN CUADERNO */}
         <section className="mb-12">
           <div className="bg-green-50 border-l-4 border-green-500 rounded-lg p-6 shadow-inner">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">Añadir nueva actuación</h3>
